@@ -118,7 +118,24 @@
   height: 300px;
   display: flex;
   color: white;
-  scroll-behavior: auto;
+  overflow: auto;
+}
+
+.PlayersField>div>div {
+  font-weight: bold;
+  font-size: large;
+  margin-bottom: 10px;
+}
+
+.PlayersField>div>ul {
+  all: unset;
+}
+
+.PlayersField>div>ul>li {
+  all: unset;
+  display: block;
+  margin-bottom: 2px;
+  min-width: 90px;
 }
 
 @keyframes App-logo-spin {

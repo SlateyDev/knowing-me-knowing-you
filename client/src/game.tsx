@@ -246,12 +246,14 @@ function Game() {
                     <div className={"HeaderImage"}><img src={smltitle} /></div>
                     <div className={"Field"}>Room Code: {state.roomCode}</div>
                     <div className={"PlayersField"}>
-                        <div>Players</div>
-                        <ul>
-                            {state.players.map((player) => (
-                                <li>{player}</li>
-                            ))}
-                        </ul>
+                        <div className={"FieldRow"}>
+                            <div>Players</div>
+                            <ul>
+                                {state.players.map((player) => (
+                                    <li>{player}</li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                     <div className={"GameButton"} onClick={startGame} aria-disabled={state.waiting}>Start Game</div>
                     {state.waiting && <div><label>Please Wait...</label></div>}
@@ -283,12 +285,14 @@ function Game() {
                     <div className={"HeaderImage"}><img src={smltitle} /></div>
                     <div className={"Field"}>Room Code: {state.roomCode}</div>
                     <div className={"PlayersField"}>
-                        <div>Players</div>
-                        <ul>
-                            {state.players.map((player) => (
-                                <li>{player}</li>
-                            ))}
-                        </ul>
+                        <div className={"FieldRow"}>
+                            <div>Players</div>
+                            <ul>
+                                {state.players.map((player) => (
+                                    <li>{player}</li>
+                                ))}
+                            </ul>
+                        </div>
                     </div>
                     <div><label>Waiting for host to start</label></div>
                     {state.waiting && <div><label>Please Wait...</label></div>}
