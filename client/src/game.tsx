@@ -1,5 +1,7 @@
 import React, {useState, useEffect, useMemo, useCallback, createContext, useReducer} from "react";
 import socket from "./socket";
+import bigtitle from './bigtitle.png';
+import smltitle from './smltitle.png';
 
 enum modeEnum {
     None,
@@ -191,21 +193,26 @@ function Game() {
     }
 
     const hostGame = () => {
+        if(state.waiting) return;
         socket.emit('requestRoom');
         dispatch({type: SET_WAITING});
     }
     const joinGame = () => {
+        if(state.waiting) return;
         dispatch({type: SET_MODE, payload: { mode: modeEnum.EnterDetails}});
     }
     const joinHostGame = () => {
+        if(state.waiting) return;
         socket.emit('joinRoom', {room: state.roomCode, name: state.playerName});
         dispatch({type: SET_WAITING});
     }
     const startGame = () => {
+        if(state.waiting) return;
         socket.emit('startGame', {room: state.roomCode});
         dispatch({type: SET_WAITING});
     }
     const provideAnswers = () => {
+        if(state.waiting) return;
         socket.emit('provideResponse', {answer1: state.answers.answer1, answer2: state.answers.answer2});
         dispatch({type: SET_WAITING});
     }
@@ -236,36 +243,53 @@ function Game() {
         case modeEnum.Host:
             return (
                 <>
-                    <div><label>Code: {state.roomCode}</label></div>
-                    <div><label>Players</label></div>
-                    <div><ul>
-                        {state.players.map((player) => (
-                            <li>{player}</li>
-                        ))}
-                    </ul></div>
-                    <div><button onClick={startGame} disabled={state.waiting}>Start Game</button></div>
+                    <div className={"HeaderImage"}><img src={smltitle} /></div>
+                    <div className={"Field"}>Room Code: {state.roomCode}</div>
+                    <div className={"PlayersField"}>
+                        <div>Players</div>
+                        <ul>
+                            {state.players.map((player) => (
+                                <li>{player}</li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className={"GameButton"} onClick={startGame} aria-disabled={state.waiting}>Start Game</div>
                     {state.waiting && <div><label>Please Wait...</label></div>}
                 </>
             );
         case modeEnum.EnterDetails:
             return (
                 <>
-                    <div><label>Code </label><input type="text" readOnly={state.waiting} value={state.roomCode} onChange={(e) => dispatch({type: SET_ROOM_CODE, payload: { code: e.target.value}})} /></div>
-                    <div><label>Full Name </label><input type="text" readOnly={state.waiting} value={state.playerName} onChange={(e) => dispatch({type: SET_PLAYER_NAME, payload: { name: e.target.value}})} /></div>
-                    <div><button onClick={joinHostGame} disabled={state.waiting}>Join Game</button></div>
+                    <div className={"HeaderImage"}><img src={smltitle} /></div>
+                    <div className={"Field"}>
+                        <div className={"FieldRow"}>
+                            <div className={"QuestionHeader"}>Room Code</div>
+                            <div className={"Answer"}><input type="text" readOnly={state.waiting} value={state.roomCode} onChange={(e) => dispatch({type: SET_ROOM_CODE, payload: { code: e.target.value}})} /></div>
+                        </div>
+                    </div>
+                    <div className={"Field"}>
+                        <div className={"FieldRow"}>
+                            <div className={"QuestionHeader"}>Full Name</div>
+                            <div className={"Answer"}><input type="text" readOnly={state.waiting} value={state.playerName} onChange={(e) => dispatch({type: SET_PLAYER_NAME, payload: { name: e.target.value}})} /></div>
+                        </div>
+                    </div>
+                    <div className={"GameButton"} onClick={joinHostGame} aria-disabled={state.waiting}>Join Game</div>
                     {state.waiting && <div><label>Please Wait...</label></div>}
                 </>
             );
         case modeEnum.JoinedHostGame:
             return (
                 <>
-                    <div><label>Code: {state.roomCode}</label></div>
-                    <div><label>Players</label></div>
-                    <div><ul>
-                        {state.players.map((player) => (
-                            <li>{player}</li>
-                        ))}
-                    </ul></div>
+                    <div className={"HeaderImage"}><img src={smltitle} /></div>
+                    <div className={"Field"}>Room Code: {state.roomCode}</div>
+                    <div className={"PlayersField"}>
+                        <div>Players</div>
+                        <ul>
+                            {state.players.map((player) => (
+                                <li>{player}</li>
+                            ))}
+                        </ul>
+                    </div>
                     <div><label>Waiting for host to start</label></div>
                     {state.waiting && <div><label>Please Wait...</label></div>}
                 </>
@@ -273,7 +297,8 @@ function Game() {
         case modeEnum.GameRunningAsHost:
             return (
                 <>
-                    <div><label>Code: {state.roomCode}</label></div>
+                    <div className={"HeaderImage"}><img src={smltitle} /></div>
+                    <div className={"Field"}>Room Code: {state.roomCode}</div>
                     <div><label>Welcome players</label></div>
                     <div><label>Waiting for answers: {state.hostAnswerCount} out of {state.hostPlayerCount} done</label></div>
                     {state.waiting && <div><label>Please Wait...</label></div>}
@@ -282,24 +307,33 @@ function Game() {
         case modeEnum.GameRunningAsPlayer:
             return (
                 <>
-                    <div><label>Code: {state.roomCode}</label></div>
-                    <div><label>You are in the game</label></div>
-                    <div><label>Questions:</label></div>
-                    <div><label>Question 1: </label></div>
-                    <div><label>{state.questions && state.questions.question1.question}</label></div>
-                    <div><input type="text" readOnly={state.waiting} value={state.answers.answer1} onChange={(e) => dispatch({type: SET_ANSWER_1, payload: { answer: e.target.value}})} /></div>
-                    <div><label>Question 1: </label></div>
-                    <div><label>{state.questions && state.questions.question2.question}</label></div>
-                    <div><input type="text" readOnly={state.waiting} value={state.answers.answer2} onChange={(e) => dispatch({type: SET_ANSWER_2, payload: { answer: e.target.value}})} /></div>
-                    <button onClick={provideAnswers} disabled={state.waiting}>Send</button>
+                    <div className={"HeaderImage"}><img src={smltitle} /></div>
+                    <div className={"Field"}>Room Code: {state.roomCode}</div>
+                    <div className={"Description"}>Please answer the following questions</div>
+                    <div className={"Field"}>
+                        <div className={"FieldRow"}>
+                            <div className={"QuestionHeader"}>Question 1:</div>
+                            <div className={"Question"}>{state.questions && state.questions.question1.question}</div>
+                            <div className={"Answer"}><input type="text" readOnly={state.waiting} value={state.answers.answer1} onChange={(e) => dispatch({type: SET_ANSWER_1, payload: { answer: e.target.value}})} /></div>
+                        </div>
+                    </div>
+                    <div className={"Field"}>
+                        <div className={"FieldRow"}>
+                            <div className={"QuestionHeader"}>Question 2:</div>
+                            <div className={"Question"}>{state.questions && state.questions.question2.question}</div>
+                            <div className={"Answer"}><input type="text" readOnly={state.waiting} value={state.answers.answer2} onChange={(e) => dispatch({type: SET_ANSWER_2, payload: { answer: e.target.value}})} /></div>
+                        </div>
+                    </div>
+                    <div className={"GameButton"} onClick={provideAnswers} aria-disabled={state.waiting}>Send</div>
                     {state.waiting && <div><label>Please Wait...</label></div>}
                 </>
             );
         default:
             return (
                 <>
-                    <div><button onClick={hostGame} disabled={state.waiting}>Host Game</button></div>
-                    <div><button onClick={joinGame} disabled={state.waiting}>Join Game</button></div>
+                    <div className={"HeaderImage"}><img src={bigtitle} /></div>
+                    <div className={"GameButton"} onClick={hostGame} aria-disabled={state.waiting}>Host Game</div>
+                    <div className={"GameButton"} onClick={joinGame} aria-disabled={state.waiting}>Join Game</div>
                     {state.waiting && <div><label>Please Wait...</label></div>}
                 </>
             );

@@ -28,6 +28,99 @@
   color: #61dafb;
 }
 
+.HeaderImage {
+  margin-bottom: 10px;
+  margin-top: 20px;
+}
+
+.GameButton {
+  background-color: #32cd32;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  width: 437px;
+  height: 96px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.GameButton[aria-disabled=true] {
+  background-color: dimgray;
+  cursor: wait;
+}
+
+.Description {
+  background-color: tan;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 397px;
+  display: flex;
+  align-items: center;
+}
+
+.Field {
+  background-color: #333333;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 397px;
+  display: flex;
+  align-items: center;
+  color: white;
+}
+
+.FieldRow {
+  display: flex;
+  flex-direction: column;
+  text-align: left;
+  width: 100%
+}
+
+.QuestionHeader {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.Question {
+  margin-bottom: 5px;
+  color: #f0e68c;
+}
+
+.Answer {
+  width: 100%;
+}
+
+.Answer>input {
+  width: 100%;
+}
+
+.PlayersField {
+  background-color: #333333;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  width: 397px;
+  height: 300px;
+  display: flex;
+  color: white;
+  scroll-behavior: auto;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
