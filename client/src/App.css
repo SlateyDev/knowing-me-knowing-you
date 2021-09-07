@@ -34,12 +34,12 @@
 }
 
 .GameButton {
-  background-color: #32cd32;
+  background-color: darkcyan;
   margin-left: auto;
   margin-right: auto;
   margin-bottom: 10px;
   width: 437px;
-  height: 96px;
+  height: 50px;
   cursor: pointer;
   display: flex;
   align-items: center;
@@ -49,6 +49,26 @@
 .GameButton[aria-disabled=true] {
   background-color: dimgray;
   cursor: wait;
+}
+
+.SwapButton {
+  background-color: indigo;
+  color: white;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 10px;
+  width: 437px;
+  height: 50px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.SwapButton[aria-disabled=true] {
+  background-color: dimgray;
+  cursor: wait;
+  color: black;
 }
 
 .Description {

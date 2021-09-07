@@ -1,8 +1,9 @@
-import React, {useState, useRef} from 'react';
+import React from 'react';
+//import {useState, useRef} from 'react';
 import './App.css';
 import Game from './game';
 
-import socket from "./socket";
+//import socket from "./socket";
 
 function App() {
     // const [list, setList] = useState<Array<any>>([]);
